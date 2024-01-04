@@ -11,7 +11,7 @@ version= '23/09/01'
 
 # setting up jinja
 env = Environment(loader=FileSystemLoader(__file__.rsplit('/',1)[0]+'/'), trim_blocks=True, lstrip_blocks=True)
-template = env.get_template('slidingmaps_jinja_template_r.html') 
+template = env.get_template('slidingfold_jinja_template.html') 
 
 # parsing command line arguments
 parser = argparse.ArgumentParser(description="a program that makes heatmaps to analyze transient RdRp-trapping RNA structures")
