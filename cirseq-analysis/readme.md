@@ -8,6 +8,7 @@ This folder contains tools written to analyze data generated using our customize
     * [Overview](#overview)
     * [Dependencies](#dependencies)
     * [Usage](#usage)
+    * [Demo](#demo)
 * [References](#references)
 
 ## Realign indels
@@ -24,16 +25,16 @@ Contaminants can be removed from the data in two ways. First, a blacklist can be
 Reads are screened for indels and for each indel, all possible alignments to the reference are identified. During this step, position-by-position coverage is calculated. Indels are then positioned according to the most stable predicted RdRp-trapping RNA structure (using the same approach as [Slidingfold](/slidingfold/)) that would be able to generate this indel according to our trapped-RdRp model. Once realigned, frequencies are obtained by dividing the count by the coverage at the position.
 
 ### Dependencies
-Realign indels uses the following software (all avaible via conda):
+Realign indels was written using Python 3.9 on MacOS 14.0 and uses the following software (all avaible via conda):
 * [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction
 * [Biopython](https://biopython.org/) for wrangling sequence files
 * [Edlib](https://github.com/Martinsos/edlib) for UMI finding
 
 ### Usage
-This script requires a lot of inputs which usually do not need to be changed much, so I never bothered to make them providable via arguments, sorry! Paths to the input file simply have to be inserted into the script.
+This script requires a lot of inputs which usually do not need to be changed much, so I never bothered to make them providable via arguments, sorry! Paths to the input file simply have to be inserted into the script. The version uploaded here contains paths compatible with the demo data provided (see [Demo](#demo) below).
 
 The input files needed and the line where the path is specified are:
-* ```line 33``` A file defining which samples should be analyzed. For each sample it requires a name and then at least one combination of run ID and barcode ID, separated by a colon. These elements have to be tab-separated. E.g.: ```RETR    133:31  144:59``` defines the sample called RETR with two replicates: run 133 barcode 31 and run 144 barcode 59. Lines starting with ```#``` will be skipped. Run and barcode identifier are treated as strings and thus don't need to be numbers.
+* ```line 33``` A file defining which samples should be analyzed. For each sample it requires a name and then at least one combination of run ID and barcode ID, separated by a colon. These elements have to be tab-separated. E.g.: ```RETR    run1:barcode1  run2:barcode1``` defines the sample called RETR with two replicates. Lines starting with ```#``` will be skipped. Run and barcode identifier are treated as strings and thus don't need to be numbers.
 * ```line 40``` A file containing a path to the reference (in fasta format) for each sample defined in the first file. Each line is tab-separated and contains the name followed by the path. E.g.: ```RETR /Users/User/Data/NGS/resources/refs/H5-RETR.fasta```
 * ```line 45``` A file containing the UMI-containing primer for each sample defined in the first file. UMIs are identified by a stretch of Ns, the number corresponding to the length of the UMI. Each line is tab-separated and contains the name followed by the primer sequence. E.g.: ```RETR  TGTAAAACGACGGCCAGTNNNNNNNNNNCAAACAGATTAGTCCTTGCAACAGG```
 
@@ -42,11 +43,29 @@ The input files needed and the line where the path is specified are:
     + ```line 58``` The path to the gzipped reads in FASTQ format (needed to identify UMIs)
     + ```line 60``` The path to the blacklist file containing IDs of reads to discard. This file can be empty in which case no reads will be discarded
 
-
 For output files, 2 paths need to be specified:
-* ```lines 26-27``` A prefix and suffix used to generate the output files containing indel frequencies. The prefix and suffix will be joined with ```insertions``` or ```deletions```, creating one file for each type. The prefix has to contain at least the path to the output folder and the suffix should contain at least the file extension.
+* ```lines 26-27``` A prefix and suffix used to generate the output files containing indel frequencies. The prefix and suffix will be joined with ```insertions``` or ```deletions```, creating one file for each type. The prefix has to contain at least the path to the output folder and the suffix should contain at least the file extension. These files hold the extracted indels and are tab-separated with the following fields (see ```demo/output/insertions_demo.tsv``` for an example):
+    
+    1. Sample name
+    2. Replicate number
+    3. Run ID
+    4. Barcode ID
+    5. Size of indel
+    6. Position of indel
+    7. Sequence of indel
+    8. Orientation of indel
+    9. Type of indel
+    10. Count of occurences
+    11. Frequency per 1000 reads
 * ```lines 51-66``` There is one sample-specific output file path to define:
     + ```line 64``` The file the coverage for this sample should be written for. This generates a tsv with position/coverage pairs for each position of the reference.
+
+### Demo
+The ```demo/input/``` folder contains sample input files (corresponding to a 10000 sequence subset of both replicates of the NL<sub>RETR</sub> and NL<sub>RKKR</sub> samples from Funk et al 2024) that should allow you to test run the script. Simply download the input folder, set your working directory to this folder, then run using:
+
+```python cirseq_realign_indel.py```
+
+The ```demo/ouput/``` contains the expected output files.
 
 ## References
 [^1]: A. Acevedo, R. Andino, [Library preparation for highly accurate population sequencing of RNA viruses](http://www.nature.com/articles/nprot.2014.118). Nat. Protoc. 9, 1760–1769 (2014).

@@ -7,6 +7,7 @@ from collections import defaultdict, Counter
 import re
 import tempfile
 import shutil
+import os
 
 # requires Biopython, ViennaRNA, edlib
 from Bio import SeqIO
@@ -17,32 +18,35 @@ import edlib
 # toggle to identify UMIs and filter out PCR duplicates
 filter_umis=True
 
+# PATHS PROVIDED DOWN BELOW ARE MEANT TO BE USED WITH THE DEMO DATA
+# YOU WILL NEED TO ADAPT THEM TO YOUR OWN FILE SYSTEM
+
 ## outfile path
 # the outfile path is a prefix/suffix tuple that will be joined with either
 # 'insertions' or 'deletions' to create 2 separate files, one per indel type
 # e.g.: 'path/to/folder/' and '_realigned.tsv' would create the output files
 # path/to/folder/insertions_realigned.tsv and 
 # path/to/folder/deletions_realigend.tsv
-out_prefix=''
-out_suffix=''
+out_prefix=('demo_output'+os.sep)
+out_suffix=('_demo.tsv')
 
 ## defining samples
 # samples are read in from a file with one tab-separated line per sample, containing the corresponding 
 # NGS runs and barcodes (separated with :), e.g.: RETR	133:31	144:59
 # file can include comment lines starting with #, these will be skipped
-sample_file_path=''
+sample_file_path=os.path.join('txt_data', 'runs.tsv')
 
 ## defining references
 # paths to the reference for each sample are read in from a file with one tab-separated line per sample
 # the path to the fasta file has to be provided, it will then be read in.
 # these names must match up with those in the samples file
 # here we just keep the reference as string
-reference_file=''
+reference_file=os.path.join('txt_data', 'refs.tsv')
 
 # primers for each sample are read in from a file with one tab-separated line per sample
 # cotaining the sample name followed by a tab and then the primer sequence
 # these names must match up with those in the samples file
-primer_file=''
+primer_file=os.path.join('txt_data','primers.tsv')
 
 # a quick function that returns the sample-specific paths to different files
 # everyone has their own way of organizing their files, but the script needs
@@ -53,15 +57,15 @@ def get_paths(run, bc):
 
     # input files
     # first file we need is the gzipped sam file containing alignments of consensuses
-    paths['sam']=''
+    paths['sam']=os.path.join('ngs_data', run, bc, f'{run}-{bc}.sam.gz')
     # second we need the file containing the gzipped raw reads to extract UMIs from
-    paths['reads']=''
+    paths['reads']=os.path.join('ngs_data', run, bc, f'{run}-{bc}.fastq.gz')
     # the file that contains eventual blacklisted read IDs
-    paths['blacklist']=''
+    paths['blacklist']=os.path.join('ngs_data', run, bc, f'{run}-{bc}-blacklist.txt')
 
     # ouput files
     # finally an output file to write the coverage to
-    paths['coverage']=''
+    paths['coverage']=os.path.join('demo_output', f'{run}-{bc}-coverage.tsv')
 
     return(paths)
 
