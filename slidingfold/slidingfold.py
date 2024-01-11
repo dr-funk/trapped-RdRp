@@ -6,11 +6,12 @@ from plotly.subplots import make_subplots
 import argparse
 import RNA
 import re
+import os
 
-version= '23/09/01'
+version= '24/01/11'
 
 # setting up jinja
-env = Environment(loader=FileSystemLoader(__file__.rsplit('/',1)[0]+'/'), trim_blocks=True, lstrip_blocks=True)
+env = Environment(loader=FileSystemLoader(__file__.rsplit(os.sep,1)[0]+os.sep), trim_blocks=True, lstrip_blocks=True)
 template = env.get_template('slidingfold_jinja_template.html') 
 
 # parsing command line arguments
