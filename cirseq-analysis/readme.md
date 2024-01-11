@@ -35,7 +35,7 @@ This script requires a lot of inputs which usually do not need to be changed muc
 
 The input files needed and the line where the path is specified are:
 * ```line 33``` A file defining which samples should be analyzed. For each sample it requires a name and then at least one combination of run ID and barcode ID, separated by a colon. These elements have to be tab-separated. E.g.: ```RETR    run1:barcode1  run2:barcode1``` defines the sample called RETR with two replicates. Lines starting with ```#``` will be skipped. Run and barcode identifier are treated as strings and thus don't need to be numbers.
-* ```line 40``` A file containing a path to the reference (in fasta format) for each sample defined in the first file. Each line is tab-separated and contains the name followed by the path. E.g.: ```RETR /Users/User/Data/NGS/resources/refs/H5-RETR.fasta```
+* ```line 40``` A file containing a path to the reference (in fasta format) for each sample defined in the first file. These must be the same references used for the CirSeq pipeline! Each line is tab-separated and contains the name followed by the path. E.g.: ```RETR /Users/User/Data/NGS/resources/refs/H5-RETR.fasta```
 * ```line 45``` A file containing the UMI-containing primer for each sample defined in the first file. UMIs are identified by a stretch of Ns, the number corresponding to the length of the UMI. Each line is tab-separated and contains the name followed by the primer sequence. E.g.: ```RETR  TGTAAAACGACGGCCAGTNNNNNNNNNNCAAACAGATTAGTCCTTGCAACAGG```
 
 * ```lines 51-66``` Beyond the above files which are the same for all samples, we also need a number of paths which vary by sample. Since we all have different ways of organizing our data, these are wrapped in a function taking the run ID and barcode ID as input. There are three input paths to fill in here:
@@ -65,7 +65,7 @@ The ```demo/input/``` folder contains sample input files (corresponding to a 100
 
 ```python cirseq_realign_indel.py```
 
-The ```demo/ouput/``` contains the expected output files.
+The ```demo/ouput/``` contains the expected output files. Please note that the references used here are in vRNA orientation.
 
 ## References
 [^1]: A. Acevedo, R. Andino, [Library preparation for highly accurate population sequencing of RNA viruses](http://www.nature.com/articles/nprot.2014.118). Nat. Protoc. 9, 1760–1769 (2014).
