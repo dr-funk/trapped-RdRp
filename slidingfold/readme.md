@@ -12,10 +12,12 @@ Structures are then parsed to identify different base pairs and stored in dot-br
 
 ## Dependencies
 Slidingfold was written and tested using Python 3.9 on MacOS 14.0 and uses the following software (all available via conda):
-* [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction
-* [Biopython](https://biopython.org/) for parsing sequences from Fasta files
-* [Plotly](https://github.com/plotly/plotly.py) for generating graphs (HTML or PDF)
-* [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) for generating interactive HTML outputs
+* [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction (using version 2.4.18)
+* [Biopython](https://biopython.org/) for parsing sequences from Fasta files (using version 1.79)
+* [Plotly](https://github.com/plotly/plotly.py) for generating graphs (HTML or PDF) (using version 5.15.0)
+* [Jinja](https://jinja.palletsprojects.com/en/3.1.x/) for generating interactive HTML outputs (using version 2.11.2)
+
+Install time should be less than a minute if you know how to use conda.
 
 The navigation menu of the interactive HTML output uses jQuery and requires and active internet connection for full functionality.
 ## Usage
@@ -47,4 +49,4 @@ An example output file for the A/mallard/Netherlands/3/1999 HA is provided in th
 
 ```python slidingfold.py <path to nl-rkkr.fasta>```
 
-If all goes well, the resulting nl-rkkr_slidingmaps.html in the same folder as the input file should look identical to the one in the ```demo``` folder.
+If all goes well, the resulting nl-rkkr_slidingmaps.html in the same folder as the input file should look identical to the one in the ```demo``` folder. Runtime should be a few seconds.

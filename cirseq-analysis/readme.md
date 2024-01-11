@@ -26,9 +26,11 @@ Reads are screened for indels and for each indel, all possible alignments to the
 
 ### Dependencies
 Realign indels was written using Python 3.9 on MacOS 14.0 and uses the following software (all avaible via conda):
-* [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction
-* [Biopython](https://biopython.org/) for wrangling sequence files
-* [Edlib](https://github.com/Martinsos/edlib) for UMI finding
+* [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction (using version 2.4.18)
+* [Biopython](https://biopython.org/) for wrangling sequence files (using version 1.79)
+* [Edlib](https://github.com/Martinsos/edlib) for UMI finding (using version 1.2.3)
+
+Install time should be less than a minute if you know how to use conda.
 
 ### Usage
 This script requires a lot of inputs which usually do not need to be changed much, so I never bothered to make them providable via arguments, sorry! Paths to the input file simply have to be inserted into the script. The version uploaded here contains paths compatible with the demo data provided (see [Demo](#demo) below).
@@ -65,7 +67,7 @@ The ```demo/input/``` folder contains sample input files (corresponding to a 100
 
 ```python cirseq_realign_indel.py```
 
-The ```demo/ouput/``` contains the expected output files. Please note that the references used here are in vRNA orientation.
+The ```demo/ouput/``` contains the expected output files. Please note that the references used here are in vRNA orientation. Running the demo should take less than a minute.
 
 ## References
 [^1]: A. Acevedo, R. Andino, [Library preparation for highly accurate population sequencing of RNA viruses](http://www.nature.com/articles/nprot.2014.118). Nat. Protoc. 9, 1760–1769 (2014).
