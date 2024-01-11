@@ -11,7 +11,7 @@ Folding is then performed using the ```vrna_mfe``` function while disallowing lo
 Structures are then parsed to identify different base pairs and stored in dot-bracket format with ```()``` representing ```A-U```, ```{}``` representing ```G-C```, and ```<>``` representing ```G-U``` base pairs.
 
 ## Dependencies
-Slidingfold uses the following software (all avaible via conda):
+Slidingfold was written and tested using Python 3.9 on MacOS 14.0 and uses the following software (all available via conda):
 * [ViennaRNA](https://github.com/ViennaRNA) for RNA structure prediction
 * [Biopython](https://biopython.org/) for parsing sequences from Fasta files
 * [Plotly](https://github.com/plotly/plotly.py) for generating graphs (HTML or PDF)
@@ -20,7 +20,7 @@ Slidingfold uses the following software (all avaible via conda):
 The navigation menu of the interactive HTML output uses jQuery and requires and active internet connection for full functionality.
 ## Usage
 ```bash
-slidingfold.py <input> 
+python slidingfold.py <input> 
 ```
 
 The only required file is the input file. It can contain any number of sequences in fasta format. This will run an analysis with default parameters and output an interactive HTML file in the same folder as the input, with the name based on the input file.
@@ -42,3 +42,9 @@ The jinja template provided here (or your own template) must be in the same fold
 * ```-le <float>``` or ```-lower_edge <float>``` manually sets the lower edge of the heatmap scale
 * ```-ue <float>``` or ```-upper_edge <float>``` manually sets the upper edge of the heatmap scale
 
+## Demo
+An example output file for the A/mallard/Netherlands/3/1999 HA is provided in the ```demo``` folder. To replicate this file yourself, run slidingfold with default parameters on the fasta input file provided in the same folder:
+
+```python slidingfold.py <path to nl-rkkr.fasta>```
+
+If all goes well, the resulting nl-rkkr_slidingmaps.html in the same folder as the input file should look identical to the one in the ```demo``` folder.
